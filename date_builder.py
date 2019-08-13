@@ -24,7 +24,8 @@ def HotelUrls(location_list, date_list, numAdults=4, numChildren=0):
 	d = "&q-check-out="
 	e = "&q-rooms=1&q-room-0-adults="
 	f = "&q-room-0-children="
-	g = "&sort-order=DISTANCE_FROM_LANDMARK"
+	#g = "&sort-order=DISTANCE_FROM_LANDMARK"
+	g = "&sort-order=PRICE"
 	urls = []
 	for i in range(len(location_list)):
 		loc = location_list[i].replace(" ", "%20")
@@ -45,7 +46,7 @@ def WriteUrlsToTex(hotel_urls, locations, date_list, place):
 		date_out = date_list[i+1]
 		f.write("\\noindent Location: " + locations[i] + "\n\n")
 		f.write(
-		"\\noindent Dates: " + shortDateTimeToString(date_in) + "-" + shortDateTimeToString(date_out) + "\n\n")
+		"\\noindent Dates: " + shortDateTimeToString(date_in) + " to " + shortDateTimeToString(date_out) + "\n\n")
 		f.write("\href{"+  hotel_urls[i] + "}{Hotel Link}\n\n")
 	f.write("\end{document}")
 
@@ -55,6 +56,7 @@ def GetLocationsAndDates(locations_and_days):
 	locs_list, days_list = map(list, zip(*locations_and_days))
 	dates_list = DateList(starting_date, days_list)
 	return (locs_list, dates_list)
+
 def shortDateTimeToString(datetime_object):
 	return datetime_object.strftime("%m/%d/%y")
 
